@@ -1,0 +1,168 @@
+% Supplement to Two models of the evolution of (non-)Universal Grammar
+% COGS 269 April 5, 2017
+% Matthew Turner
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage{pslatex}
+\usepackage{apacite}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[margin=1.35in]{geometry}
+
+
+\title{A semantic network approach to analysis of cable news}
+\author{Matthew Turner}
+\date{March 31, 2017}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+\label{sec:Introduction}
+
+For over two millenia the best thinkers have wondered about language. Is 
+language mainly biological phenomenon that emerged when a ``language organ'' 
+evolved to a 
+critical point? Or, is language a tool, like a bow and arrow, or a computer? 
+The two models and their associated papers reviewed here each
+aim to support these two opposing views. As shown in Section \ref{sec:PropagatorEquivalence},
+the two models are, in a general sense, mathematically equivalent. Both
+consider stochastic transitions from one state of language use in a human
+population to another. However, the mechanism that gives rise to the equations 
+are different. 
+
+\subsection{Motivation}
+\label{sub:Motivation}
+
+The foundations of language are important in and of themselves. Clearly in order
+to understand the mind, as a whole, and the behavior of minds in society,
+we must understand the biological and cultural foundations of language. However,
+I believe that the papers presented here point towards a general method for
+studying language development over time. While these papers study the evolution 
+of grammar, which is roughly the structure of utterances, they both 
+demonstrate a general method for agent- and population-based modeling of 
+language change over any timescale. 
+
+My research focuses on changes in pragmatics of language in relationship
+to culture. For example, I am studying the effect of the beginning and ending
+of the series of presidential debates on the use of metaphorical violence on
+cable news. There are many cultural and psychological issues going on, but
+if combined in a smart way, these could be included in an agent-based model
+that mimicks the real-world system. In another project, I am investigating
+the differences and dynamics semantic networks as revealed by 
+vector space models of language use by 24-hour news stations. We can see in
+near real time semantic relationships changing, and we can quantify the difference
+in meaning of flashpoint words like ``Islam'', ``conservative'', ``liberal'',
+or ``democracy''. 
+
+\subsection{Outline}
+\label{sub:Outline}
+
+
+
+
+
+\section{Equivalence of the two propagators}
+\label{sec:PropagatorEquivalence}
+
+The \citeA{Nowak2001} equation of population dynamics at any given timestep
+is
+
+\begin{equation}
+  \dot{x}_i = \sum_{j} x_j f_j Q_{ji} - \phi x_i
+  \label{eq:NowakDynamics}
+\end{equation}
+
+\noindent
+\citeA{Thompson2016} use the dynamics equation
+
+\begin{equation}
+  g^{(t+1)}_i = \frac{1}{\phi} \sum_{j} g_j^t f_j m_{ij}
+  \label{eq:ThompsonDynamics}
+\end{equation}
+
+\noindent
+I will show these can both be written in a general form 
+
+\begin{equation}
+  g_i^{t+1} = \sum_j A_{ji} g_i^t
+\end{equation}
+
+This demonstration illustrates the commonality between the two models. They
+both assume there is some probabilistic transition 
+from one ``grammar'' or ``language type'' to another. The matrix $A_{ji}$ is
+then the transition matrix. \citeA{Nowak2001} consider under what conditions
+does their dynamics equation, Equation \ref{eq:NowakDynamics}, have stable
+solutions. For these stable solutions, they then determine what the solutions
+have to say to either support or disconfirm the existence of a Universal Grammar 
+that has evolved.
+
+On the other hand, \citeA{Thompson2016} consider two models with the same
+dynamical equation---the difference between the models mainly concerns the
+nature of $m_{ji}$ in their dynamics equation, Equation 
+\ref{eq:ThompsonDynamics}. Within each of the two models, Thompson and coworkers
+evaluate what steady states emerge as $t \rightarrow \infty$ based on
+Bayesian probabilities and infinite population ($n \rightarrow \infty$). 
+They also consider finite $n$ and implement agent-based models with Bayesian
+learners.
+
+\subsection{Derivation}
+\label{sub:Derivation}
+
+The derivation for Equation \ref{eq:ThompsonDynamics} is obvious, we just have $A_{ji} = \frac{1}{\phi} f_j m_{ij}$.
+To obtain this general form from Equation \ref{eq:NowakDynamics} we use the
+Kronecker delta function defined as 
+
+\[
+  \delta_{ij} = \begin{cases}
+    1~\mathrm{if}~i = j \\
+    0~\mathrm{otherwise} 
+  \end{cases}
+\]
+
+This allows us to write 
+
+\[
+  x_i = \sum_j \delta_{ji} x_j
+\]
+
+Then we have 
+
+\begin{align}
+  \begin{split}
+  \dot{x}_i &= \sum_j x_j f_j Q_{ji} - \phi \sum_j \delta_{ji} x_j \\
+            &= \sum_j x_j \left( f_j Q_{ji} - \phi \delta_{ji} \right)
+  \end{split}
+\end{align}
+
+Now since $\dot{x}_i$ is the time derivative of the population frequency 
+speaking with grammar $G_i$, the frequency at time $t+1$ can be written
+
+\begin{align}
+  \begin{split}
+  x^{t+1}_i &= x^{t}_i + \dot{x}_i \\
+            &= \sum_j \delta_{ji} x^{t}_j + \sum_j x^t_j \left( f_j Q_{ji} - \phi \delta_{ji} \right) \\
+            &= \sum_j x^t_j \left( f_j Q_{ji} + (1 - \phi) \delta_{ji} \right) \\
+            &= \sum_j A_{ji} x^t_j
+  \end{split}
+\end{align}
+
+\noindent so for the Nowak dynamics, 
+$A_{ji} = \left( f_j Q_{ji} + (1 - \phi) \delta_{ji} \right)$
+\citeA{Nowak2001} uses $x^t_i$ to represent the frequency of the population
+speaking with grammar $G_i$ while $g^t_i$ is ``the proportion of the population 
+at generation $t$ made up by learners with prior $\alpha_i$.'' This will be
+explained in more detail later.
+
+
+\bibliographystyle{apacite}
+
+\setlength{\bibleftmargin}{.125in}
+\setlength{\bibindent}{-\bibleftmargin}
+
+\bibliography{bib}
+
+\end{document}
