@@ -37,6 +37,22 @@ pizza or a bow and arrow\footnote{\tiny Everett, D. L. (2012). Language: The cul
 \footnotesize{Fitch, W. T., Huber, L., \& Bugnyar, T. (2010). 
 Social Cognition and the Evolution of Language: Constructing Cognitive Phylogenies. Neuron, 65(6), 795–814.}
 
+# Motivation
+
+## Violence metaphors in cable news election coverage
+
+![Violent words used in figurative violence constructions over time. 
+Debates seem to increase usage](figures/fig_uses_violent_words-FIG1.pdf)
+
+## Word meaning in culture (and changes over time)
+
+![Difference in semantics between Fox News and MSNBC](figures/liberal.pdf)
+
+## Word meaning in culture (and changes over time)
+
+![Difference in semantics between Fox News and MSNBC](figures/islam.pdf)
+
+
 # Nowak, Komarova, & Niyogi (2001)
 
 ## Key results
@@ -68,9 +84,6 @@ All results derive from the equilibrium solution, which means
 \begin{equation}
     \dot{x}_i = \frac{dx_i}{dt} = 0 \quad \forall i   
 \end{equation}
-
-The can be shown to have the same general form as the basic dynamics equation of
-Thompson, Kirby, & Smith (2016).
 
 
 ## Key concepts & facts
@@ -142,19 +155,66 @@ Recall two learner types:
 ## Now with learners: Memoryless learner
 
 * Starts by guessing it is learning grammar $G_r$ ($r$ as in _random_). 
-* If learner can understand teacher's utterance, it keeps $G_r$
+* If learner can understand teacher's utterance, it keeps $G_r$. Otherwise, 
+switch to another grammar at random.
 
+Results in 
 
+$$
+q(b) = 1 - \left(1 - \frac{1-a}{n}\right)^b
+$$
+
+## Now with learners: Batch learner
+
+* Given $b$ example sentences then chooses the most consistent grammar
+
+Results in
+
+$$
+q(b) = \frac{1 - (1 - a^b)^n}{na^b}
+$$
 
 ## Average coherence vs. learning period (uniform random $a_{ij}$)
 
 \includegraphics[width=\textwidth]{figures/nowak-fig-2.png}
 
+## Comparing two universal grammars
+
+Nowak, et al., derive dynamics equations\footnote{see (34) in references} 
+for two competing universal grammars in order determine conditions for 
+one to be an evolutionarily stable strategy (ESS).
+
 ## Evolutionarily Stable Solution (memoryless learner)
 
 \includegraphics[width=\textwidth]{figures/nowak-fig-3.png}
 
+## Coherence thresholds as a function of learning period, $b$
 
+With $q > q_1$
+
+* Batch learner:
+
+\begin{equation}
+  b > C_1 n
+\end{equation}
+
+* Memoryless learner:
+
+\begin{equation}
+  b > C_2 \log{n}
+\end{equation}
+
+$n$ is the number of candidate grammars, $G_i$
+
+
+## When rule-based grammars are evolutionarily stable
+
+Combining the results from before Nowak, et al., obtain the condition for
+rule-based grammars to yield greater fitness
+
+$$
+N > \frac{\log{n}}{\log{1/a}}
+$$
 
 # Thompson, Kirby, and Smith (2016)
 
@@ -168,13 +228,36 @@ in this model is given recursively
 g_j^{t+1} = \frac{1}{\phi} \sum_{j=0}^n g_j^t f_j m_{ij}
 \end{equation}
 
-* $g_j^t$ is still the proportion of speakers of language (grammar) $i$, but
+* $g_j^t$ is proportion of speakers with prior $\alpha_j \in [0, 1]$, but
 now with an explicit time dependence 
 * $f_j$ is still the fitness, though with a different definition (Equation [2]
   in the paper)
 * $m_{ij}$ is like $Q_{ji}$: it is the probability that a learner with 
 $T_j$ at time $t$ will speak $T_i$ at time $t+1$
 * $\phi = \sum_{i=0}^n g_i f_i$, still the average fitness of the population
+
+## Key concepts & facts
+
+$$
+g_j^{t+1} = \frac{1}{\phi} \sum_{j=0}^n g_j^t f_j m_{ij}
+$$
+
+$$
+f_i = a_ic + (1 - a_i)(1 - c)
+$$
+
+* $c$ is the proportion of the population speaking $T_1$.
+
+* $a_i$ is the probability a learner with prior, $\alpha_i$
+
+## Key results
+
+* Linguistic universals emerge in learning cultures without strong biological
+adaptation for such universals
+    * But only for a specific type of learning
+* Can be generalized for any "behavioral universal"
+* Genetic variation contributes to universals, but weakly, 
+to a significantly lesser degree than cultural "evolution"
 
 
 ## Transition probability $m_{ij}$
@@ -216,21 +299,52 @@ and $S \rightarrow Y X$ in $(1 - p)$ of all constructions.
 ## Discrete feature learning ($n \rightarrow \infty$)
 \begin{figure}
 \includegraphics[width=\textwidth]{figures/thompson-fig-1-ninf.png}
-\caption{$\alpha$ is the probability that 
+\caption{
+(Upper) Solid line is $\alpha$ over time, the dotted line is $c$ (fraction of speakers
+speaking $T_1$). (Lower) $\alpha$ is the probability distribution of priors, $\alpha_i$. 
+}
 \label{fig:thompson-1-ninf}
 \end{figure}
 
-## Discrete feature learning ($n=300$ agent-based model)
+## Discrete feature learning ($n=100$ agent-based model)
 
+\begin{figure}
 \includegraphics[width=0.7\textwidth]{figures/thompson-fig-1-abm.png}
+\caption{
+Acultural populations are green, MAP populations are blue, and sample learners
+are red.  The results are plotted at the end of 300 trials with 1000
+generations.
+}
+\label{fig:thompson-1-abm}
+\end{figure}
 
 
 ##  ($n \rightarrow \infty$)
 
+\begin{figure}
 \includegraphics[width=\textwidth]{figures/thompson-fig-2-ninf.png}
+\caption{
+(Upper) Solid line is $\alpha$ over time, the dotted line is $c$ (fraction of speakers
+speaking $T_1$). (Lower) $\alpha$ is the probability distribution of priors, $\alpha_i$. 
+}
+\label{fig:thompson-2-inf}
+\end{figure}
 
 ## Model 2 of 2 ($n=300 agent-based model)
 
+\begin{figure}
 \includegraphics[width=0.7\textwidth]{figures/thompson-fig-2-abm.png}
+\caption{
+Acultural populations are green, MAP populations are blue, and sample learners
+are red.  The results are plotted at the end of 300 trials with 1000
+generations.
+}
+\label{fig:thompson-2-abm}
+\end{figure}
 
+# Assumptions
 
+## Assumptions
+
+1. Discrete, unchanging, finite language types
+2. "Learning" algorithms are highly abstract
